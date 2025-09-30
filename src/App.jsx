@@ -7,6 +7,7 @@ import AuthCard from './components/AuthCard';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import UserPanel from './components/UserPanel';
+import ClientManager from './components/ClientManager';
 
 import { login, register, getMe } from './api/auth';
 
@@ -139,6 +140,9 @@ export default function App() {
                   {mensagem}
                 </div>
               )}
+
+              {/* Adiciona a interface de gerenciamento somente se usuário estiver autenticado */}
+              {token && <ClientManager token={token} />}
             </AuthCard>
 
             <div className="text-center mt-4" style={{ color: '#9E9E9E', fontSize: 12 }}>
