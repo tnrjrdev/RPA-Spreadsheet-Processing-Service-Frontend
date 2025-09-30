@@ -1,0 +1,56 @@
+/* === Reset para layout full-bleed escuro === */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background: #0B0B0B;        /* fundo Deloitte */
+  color: #F5F5F5;             /* texto claro padrão */
+}
+
+/* Remover o flex-centering do Vite para não “encolher” a área escura */
+body {
+  display: block;             /* era display:flex */
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Evita que o tema claro do SO force fundo branco */
+:root {
+  color-scheme: dark;         /* ou 'only dark' se quiser forçar */
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background: #0B0B0B;        /* garante escuro mesmo no :root/html */
+  color: #F5F5F5;
+}
+
+/* Neutraliza o bloco que invertia para branco quando o SO está em light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    background: #0B0B0B;      /* mantém escuro */
+    color: #F5F5F5;
+  }
+}
+
+/* Links e botões sem “brigar” com a paleta do app */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover { opacity: .9; }
+
+button {
+  font: inherit;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: box-shadow .15s ease, transform .05s ease;
+  background: inherit;        /* deixa o componente decidir (App.jsx) */
+}
+button:focus-visible {
+  outline: 3px solid rgba(134,188,37,.45); /* foco acessível no verde Deloitte */
+  outline-offset: 2px;
+}
