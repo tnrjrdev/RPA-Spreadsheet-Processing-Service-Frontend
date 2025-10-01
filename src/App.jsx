@@ -7,7 +7,9 @@ import AuthCard from './components/AuthCard';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import UserPanel from './components/UserPanel';
-import ClientManager from './components/ClientManager';
+import UploadPanel from './components/UploadPanel';
+import DadosTable from './components/DadosTable';
+// import ClientManager from './components/ClientManager'; // Só adicione se quiser manter o CRUD antigo
 
 import { login, register, getMe } from './api/auth';
 
@@ -21,6 +23,7 @@ export default function App() {
   const [success, setSuccess] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [reloadFlag, setReloadFlag] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -141,8 +144,14 @@ export default function App() {
                 </div>
               )}
 
-              {/* Adiciona a interface de gerenciamento somente se usuário estiver autenticado */}
-              {token && <ClientManager token={token} />}
+              {/* NOVOS COMPONENTES DE GESTÃO DE DADOS */}
+              {token && (
+                <>
+                  <UploadPanel token={token} onUploadSuccess={() => setReloadFlag(f => !f)} />
+                  <DadosTable token={token} reloadFlag={reloadFlag} />
+                  {/* <ClientManager token={token} />  Se quiser manter, pode exibir também */}
+                </>
+              )}
             </AuthCard>
 
             <div className="text-center mt-4" style={{ color: '#9E9E9E', fontSize: 12 }}>
